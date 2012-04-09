@@ -225,6 +225,10 @@ def SDTAtomicLoad : SDTypeProfile<1, 1, [
   SDTCisInt<0>, SDTCisPtrTy<1>
 ]>;
 
+def SDTGCNoteRoot : SDTypeProfile<0, 2, [
+  SDTCisPtrTy<0>, SDTCisInt<1>
+]>;
+
 def SDTConvertOp : SDTypeProfile<1, 5, [ //cvtss, su, us, uu, ff, fs, fu, sf, su
   SDTCisVT<2, OtherVT>, SDTCisVT<3, OtherVT>, SDTCisPtrTy<4>, SDTCisPtrTy<5>
 ]>;

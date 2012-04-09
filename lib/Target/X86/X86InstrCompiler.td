@@ -69,11 +69,9 @@ def ADJCALLSTACKUP64   : I<0, Pseudo, (outs), (ins i32imm:$amt1, i32imm:$amt2),
                           Requires<[In64BitMode]>;
 }
 
-def X86NOTEROOT64r : I<0, Pseudo, (outs), (ins GR64:$root, i32imm:$meta),
+def X86NOTEROOT64r : I<0, Pseudo, (outs), (ins GR64:$root, i64imm:$meta),
                        "#X86NOTEROOT64r $root,$meta",
-                       [(gcnoteroot GR64:$root, i32imm:$meta)]>;
-
-
+                       [(gcnoteroot GR64:$root, imm:$meta)]>; 
 
 // x86-64 va_start lowering magic.
 let usesCustomInserter = 1 in {
