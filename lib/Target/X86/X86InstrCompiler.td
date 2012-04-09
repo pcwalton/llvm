@@ -71,7 +71,7 @@ def ADJCALLSTACKUP64   : I<0, Pseudo, (outs), (ins i32imm:$amt1, i32imm:$amt2),
 
 def X86NOTEROOT64r : I<0, Pseudo, (outs), (ins GR64:$root, i32imm:$meta),
                        "#X86NOTEROOT64r $root,$meta",
-                       [(GCNOTEROOT GR64:$root, i32imm:$meta)]>;
+                       [(gcnoteroot GR64:$root, i32imm:$meta)]>;
 
 
 
