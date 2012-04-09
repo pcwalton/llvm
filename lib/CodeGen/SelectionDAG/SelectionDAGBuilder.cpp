@@ -58,6 +58,8 @@
 #include <algorithm>
 using namespace llvm;
 
+#include <stdio.h>
+
 /// LimitFloatPrecision - Generate low-precision inline sequences for
 /// some float libcalls (6, 8 or 12 bits).
 static unsigned LimitFloatPrecision;
@@ -5073,6 +5075,12 @@ SelectionDAGBuilder::visitIntrinsicCall(const CallInst &I, unsigned Intrinsic) {
   case Intrinsic::gcread:
   case Intrinsic::gcwrite:
     llvm_unreachable("GC failed to lower gcread/gcwrite intrinsics!");
+  case Intrinsic::gcnoteroot: {
+    printf("*** GCnoteroot!\n");
+    Res = getValue(I.getArgOperand(0));
+    DAG.setRoot(DAG.getNode(ISD::GCNOTEROOT, dl, MVT::Other, getRoot(), Res));
+    return 0;
+  }
   case Intrinsic::flt_rounds:
     setValue(&I, DAG.getNode(ISD::FLT_ROUNDS_, dl, MVT::i32));
     return 0;

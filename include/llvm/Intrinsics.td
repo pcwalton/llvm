@@ -194,6 +194,8 @@ def int_gcread  : Intrinsic<[llvm_ptr_ty],
 def int_gcwrite : Intrinsic<[],
                             [llvm_ptr_ty, llvm_ptr_ty, llvm_ptrptr_ty],
                             [IntrReadWriteArgMem, NoCapture<1>, NoCapture<2>]>;
+def int_gcnoteroot : Intrinsic<[],
+                               [llvm_ptr_ty, llvm_i32_ty]>;
 
 //===--------------------- Code Generator Intrinsics ----------------------===//
 //

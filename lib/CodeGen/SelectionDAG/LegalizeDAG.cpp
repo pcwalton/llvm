@@ -2911,6 +2911,10 @@ void SelectionDAGLegalize::ExpandNode(SDNode *Node) {
       Results.push_back(Node->getOperand(0));
     }
     break;
+  case ISD::GCNOTEROOT:
+    // FIXME: Is this right?
+    Results.push_back(Node->getOperand(0));
+    break;
   case ISD::FCOPYSIGN:
     Results.push_back(ExpandFCOPYSIGN(Node));
     break;

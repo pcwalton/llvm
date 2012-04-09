@@ -523,6 +523,9 @@ namespace ISD {
     // it returns an output chain.
     STACKRESTORE,
 
+    // GCNOTEROOT - A root for GC.
+    GCNOTEROOT,
+
     // CALLSEQ_START/CALLSEQ_END - These operators mark the beginning and end of
     // a call sequence, and carry arbitrary information that target might want
     // to know.  The first operand is a chain, the rest are specified by the
