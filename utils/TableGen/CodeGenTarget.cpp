@@ -289,6 +289,7 @@ void CodeGenTarget::ComputeInstrsByEnum() const {
     "DBG_VALUE",
     "REG_SEQUENCE",
     "COPY",
+    "GC_REG_ROOT",
     "BUNDLE",
     0
   };
