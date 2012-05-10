@@ -376,6 +376,8 @@ void TargetPassConfig::addMachinePasses() {
   else
     addFastRegAlloc(createRegAllocPass(false));
 
+  addPass(GCMachineCodeFixupID);
+
   // Run post-ra passes.
   if (addPostRegAlloc())
     printAndVerify("After PostRegAlloc passes");
