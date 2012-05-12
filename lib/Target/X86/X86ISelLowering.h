@@ -640,7 +640,8 @@ namespace llvm {
 
     /// createFastISel - This method returns a target specific FastISel object,
     /// or null if the target does not support "fast" ISel.
-    virtual FastISel *createFastISel(FunctionLoweringInfo &funcInfo) const;
+    virtual FastISel *createFastISel(FunctionLoweringInfo &funcInfo,
+                                     GCFunctionInfo &gcInfo) const;
 
     /// getStackCookieLocation - Return true if the target stores stack
     /// protector cookies at a fixed offset in some non-standard address
@@ -921,7 +922,8 @@ namespace llvm {
   };
 
   namespace X86 {
-    FastISel *createFastISel(FunctionLoweringInfo &funcInfo);
+    FastISel *createFastISel(FunctionLoweringInfo &funcInfo,
+                             GCFunctionInfo &gcInfo);
   }
 }
 

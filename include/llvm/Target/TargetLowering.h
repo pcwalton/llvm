@@ -39,6 +39,7 @@ namespace llvm {
   class CCState;
   class FastISel;
   class FunctionLoweringInfo;
+  class GCFunctionInfo;
   class ImmutableCallSite;
   class IntrinsicInst;
   class MachineBasicBlock;
@@ -1352,7 +1353,8 @@ public:
 
   /// createFastISel - This method returns a target specific FastISel object,
   /// or null if the target does not support "fast" ISel.
-  virtual FastISel *createFastISel(FunctionLoweringInfo &) const {
+  virtual FastISel *createFastISel(FunctionLoweringInfo &, GCFunctionInfo &)
+      const {
     return 0;
   }
 

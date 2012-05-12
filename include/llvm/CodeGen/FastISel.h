@@ -24,6 +24,7 @@ class AllocaInst;
 class Constant;
 class ConstantFP;
 class FunctionLoweringInfo;
+class GCFunctionInfo;
 class Instruction;
 class LoadInst;
 class MachineBasicBlock;
@@ -57,6 +58,7 @@ protected:
   const TargetInstrInfo &TII;
   const TargetLowering &TLI;
   const TargetRegisterInfo &TRI;
+  GCFunctionInfo &GFI;
 
   /// The position of the last instruction for materializing constants
   /// for use in the current block. It resets to EmitStartPt when it
@@ -144,7 +146,7 @@ public:
   virtual ~FastISel();
 
 protected:
-  explicit FastISel(FunctionLoweringInfo &funcInfo);
+  explicit FastISel(FunctionLoweringInfo &funcInfo, GCFunctionInfo &gcInfo);
 
   /// TargetSelectInstruction - This method is called by target-independent
   /// code when the normal FastISel process fails to select an instruction.
