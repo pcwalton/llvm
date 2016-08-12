@@ -1621,7 +1621,8 @@ bool GVN::processNonLocalLoad(LoadInst *LI) {
 
   // Step 1: Find the non-local dependencies of the load.
   LoadDepVect Deps;
-  MD->getNonLocalPointerDependency(LI, Deps);
+  MemoryLocation Loc = MemoryLocation::get(LI);
+  MD->getNonLocalPointerDependency(Loc, true, LI, Deps);
 
   // If we had to process more than one hundred blocks to find the
   // dependencies, this load isn't worth worrying about.  Optimizing

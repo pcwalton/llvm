@@ -381,7 +381,7 @@ public:
   ///
   /// This method assumes the pointer has a "NonLocal" dependency within
   /// QueryInst's parent basic block.
-  void getNonLocalPointerDependency(Instruction *QueryInst,
+  void getNonLocalPointerDependency(MemoryLocation &Loc, bool isLoad, Instruction *QueryInst,
                                     SmallVectorImpl<NonLocalDepResult> &Result);
 
   /// Removes an instruction from the dependence analysis, updating the

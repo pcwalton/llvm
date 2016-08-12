@@ -119,7 +119,9 @@ bool MemDepPrinter::runOnFunction(Function &F) {
       SmallVector<NonLocalDepResult, 4> NLDI;
       assert( (isa<LoadInst>(Inst) || isa<StoreInst>(Inst) ||
                isa<VAArgInst>(Inst)) && "Unknown memory instruction!"); 
-      MDA.getNonLocalPointerDependency(Inst, NLDI);
+
+      MemoryLocation Loc = MemoryLocation::get(Inst);
+      MDA.getNonLocalPointerDependency(Loc, isa<LoadInst>(Inst), Inst, NLDI);
 
       DepSet &InstDeps = Deps[Inst];
       for (const NonLocalDepResult &I : NLDI) {

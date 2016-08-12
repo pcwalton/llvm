@@ -875,9 +875,8 @@ MemoryDependenceResults::getNonLocalCallDependency(CallSite QueryCS) {
 }
 
 void MemoryDependenceResults::getNonLocalPointerDependency(
-    Instruction *QueryInst, SmallVectorImpl<NonLocalDepResult> &Result) {
-  const MemoryLocation Loc = MemoryLocation::get(QueryInst);
-  bool isLoad = isa<LoadInst>(QueryInst);
+    MemoryLocation &Loc, bool isLoad, Instruction *QueryInst,
+    SmallVectorImpl<NonLocalDepResult> &Result) {
   BasicBlock *FromBB = QueryInst->getParent();
   assert(FromBB);
 
