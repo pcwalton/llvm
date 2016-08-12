@@ -989,9 +989,17 @@ bool MemCpyOptPass::processMemCpyMemCpyDependence(MemCpyInst *M,
   //
   // NOTE: This is conservative, it will stop on any read from the source loc,
   // not just the defining memcpy.
-  MemDepResult SourceDep =
-      MD->getPointerDependencyFrom(MemoryLocation::getForSource(MDep), false,
-                                   M->getIterator(), M->getParent());
+  MemoryLocation SourceLoc = MemoryLocation::getForSource(MDep);
+  MemDepResult SourceDep = MD->getPointerDependencyFrom(SourceLoc, false,
+                                                        M->getIterator(), M->getParent());
+
+  SmallVector<NonLocalDepResult, 2> NonLocalDepResults;
+  if (SourceDep.isNonLocal()) {
+    MD->getNonLocalPointerDependency(SourceLoc, false, M, NonLocalDepResults);
+    if (NonLocalDepResults.size() == 1)
+      SourceDep = NonLocalDepResults[0].getResult();
+  }
+
   if (!SourceDep.isClobber() || SourceDep.getInst() != MDep)
     return false;
 
@@ -1189,6 +1197,13 @@ bool MemCpyOptPass::processMemCpy(MemCpyInst *M) {
   MemoryLocation SrcLoc = MemoryLocation::getForSource(M);
   MemDepResult SrcDepInfo = MD->getPointerDependencyFrom(
       SrcLoc, true, M->getIterator(), M->getParent());
+
+  SmallVector<NonLocalDepResult, 2> NonLocalDepResults;
+  if (SrcDepInfo.isNonLocal()) {
+    MD->getNonLocalPointerDependency(SrcLoc, true, M, NonLocalDepResults);
+    if (NonLocalDepResults.size() == 1)
+      SrcDepInfo = NonLocalDepResults[0].getResult();
+  }
 
   if (SrcDepInfo.isClobber()) {
     if (MemCpyInst *MDep = dyn_cast<MemCpyInst>(SrcDepInfo.getInst()))
